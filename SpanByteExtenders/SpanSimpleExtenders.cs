@@ -6,24 +6,25 @@ namespace SpanByteExtenders;
 
 public static class SpanSimpleExtenders
 {
+    /// <summary>
+    /// Read one struct from span and advance the pointer by the number of bytes read.
+    /// Used Unsafe.SizeOf for calculate struct size.
+    /// </summary>
     public static T Read<T>(this ref Span<byte> span) where T : struct
     {
-        var size = Unsafe.SizeOf<T>();
-
-        var r = MemoryMarshal.Read<T>(span);
-        span = span.Slice(size);
-
+        var r = Unsafe.As<byte, T>(ref MemoryMarshal.GetReference(span));
+        span = span.Slice(Unsafe.SizeOf<T>());
         return r;
     }
 
+    /// <summary>
+    /// Write one struct to span and advance the pointer by the number of bytes written.
+    /// Used Unsafe.SizeOf for calculate struct size.
+    /// </summary>
     public static Span<byte> Write<T>(this ref Span<byte> span, T value) where T : struct
     {
-        var size = Unsafe.SizeOf<T>();
-
-        MemoryMarshal.Write(span, ref value);
-        span = span.Slice(size);
-
-        return span;
+        Unsafe.As<byte, T>(ref MemoryMarshal.GetReference(span)) = value;
+        return span = span.Slice(Unsafe.SizeOf<T>());
     }
 
     #region Obsolete

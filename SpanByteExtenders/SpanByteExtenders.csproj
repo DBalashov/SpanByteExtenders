@@ -8,7 +8,7 @@
         <AssemblyName>SpanByteExtenders</AssemblyName>
         <PackageId>$(AssemblyName)</PackageId>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-        <Version>2023.5.31.0</Version>
+        <Version>2023.6.1.0</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
         <Description>Span extensions. MIT License</Description>

@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace SpanByteExtenders.Tests;
 
-public class StringTests
+public class SpanStringTests
 {
     [Test]
     public void TestSingle()

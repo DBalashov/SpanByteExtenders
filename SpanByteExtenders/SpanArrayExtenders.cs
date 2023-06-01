@@ -6,32 +6,33 @@ namespace SpanByteExtenders;
 
 public static class SpanArrayExtenders
 {
-    public static Span<T> Read<T>(this ref Span<byte> span, int count) where T : struct => span.readItems<T>(count);
-
-    public static Span<byte> Write<T>(this ref Span<byte> span, Span<T> items) where T : struct => span.writeItems(items);
-
-    #region internals
-
-    static Span<T> readItems<T>(this ref Span<byte> span, int count, int? itemSize = null) where T : struct
+    /// <summary>
+    /// Read structs and advance the pointer by the number of bytes read.
+    /// Used Unsafe.SizeOf for calculate struct size.
+    /// </summary>
+    /// <param name="count">count of structs for read. If not specified - read span.Length/sizeof(T) structs </param>
+    public static Span<T> Read<T>(this ref Span<byte> span, int? count = null) where T : struct
     {
         if (count < 0) throw new ArgumentException("Must be >0", nameof(count));
 
-        itemSize ??= Unsafe.SizeOf<T>();
+        var itemSize = Unsafe.SizeOf<T>();
+        count ??= span.Length / itemSize;
 
-        var r = MemoryMarshal.Cast<byte, T>(span.Slice(0, count * itemSize.Value)).Slice(0, count);
-        span = span.Slice(count * itemSize.Value);
+        var lengthInBytes = count.Value * itemSize;
+        var r             = MemoryMarshal.Cast<byte, T>(span.Slice(0, lengthInBytes));
+        span = span.Slice(lengthInBytes);
         return r;
     }
 
-    static Span<byte> writeItems<T>(this ref Span<byte> span, Span<T> items, int? count = null) where T : struct
+    /// <summary>
+    /// Write structs and advance the pointer by the number of bytes written.
+    /// Used Unsafe.SizeOf for calculate struct size.
+    /// </summary>
+    public static Span<byte> Write<T>(this ref Span<byte> span, Span<T> items) where T : struct
     {
-        var itemSize = Unsafe.SizeOf<T>();
-        count ??= items.Length;
-        MemoryMarshal.Cast<T, byte>(items.Slice(0, count.Value)).CopyTo(span);
-        return span = span.Slice(count.Value * itemSize);
+        MemoryMarshal.Cast<T, byte>(items).CopyTo(span);
+        return span = span.Slice(items.Length * Unsafe.SizeOf<T>());
     }
-
-    #endregion
 
     #region Obsolete
 

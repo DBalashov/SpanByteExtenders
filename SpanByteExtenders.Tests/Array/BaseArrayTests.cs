@@ -1,26 +1,13 @@
-﻿using System.Runtime.CompilerServices;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace SpanByteExtenders.Tests;
 
-public class ArrayTests
+public abstract class BaseArrayTests
 {
     const int SIZE = 16;
 
-    void run<T>(T[] rawData) where T : struct
-    {
-        var itemSize = Unsafe.SizeOf<T>();
-        var buff = new byte[itemSize * rawData.Length +
-                            Random.Shared.Next(0, 200)]; // + some random length to buffer
-
-        var rawDataSpan = buff.AsSpan();
-        rawDataSpan.Write(rawData.AsSpan());
-
-        var finalSpan = buff.AsSpan();
-        var finalData = finalSpan.Read<T>(rawData.Length);
-        Assert.IsTrue(finalData.SequenceEqual(rawData.AsSpan()));
-    }
-
+    protected abstract void run<T>(T[] rawData) where T : struct;
+    
     [Test]
     public void TestGuids() => run(Enumerable.Range(0, SIZE).Select(p => Guid.NewGuid()).ToArray());
 
