@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpanByteExtenders", "SpanByteExtenders\SpanByteExtenders.csproj", "{1DC1EEA6-F7AF-4C78-9DBE-E97F86EF669A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpanByteExtenders.Tests", "SpanByteExtenders.Tests\SpanByteExtenders.Tests.csproj", "{A73E2EFE-F0F5-46DD-9D35-58FF90B87092}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DC1EEA6-F7AF-4C78-9DBE-E97F86EF669A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC1EEA6-F7AF-4C78-9DBE-E97F86EF669A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC1EEA6-F7AF-4C78-9DBE-E97F86EF669A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC1EEA6-F7AF-4C78-9DBE-E97F86EF669A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C900C34D-E080-460C-8F53-1BA3BCB71738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C900C34D-E080-460C-8F53-1BA3BCB71738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C900C34D-E080-460C-8F53-1BA3BCB71738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C900C34D-E080-460C-8F53-1BA3BCB71738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD5150D8-7D7C-432C-B891-868A2E8CCD7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD5150D8-7D7C-432C-B891-868A2E8CCD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD5150D8-7D7C-432C-B891-868A2E8CCD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD5150D8-7D7C-432C-B891-868A2E8CCD7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A73E2EFE-F0F5-46DD-9D35-58FF90B87092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A73E2EFE-F0F5-46DD-9D35-58FF90B87092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A73E2EFE-F0F5-46DD-9D35-58FF90B87092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A73E2EFE-F0F5-46DD-9D35-58FF90B87092}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
