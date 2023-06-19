@@ -23,6 +23,28 @@ public static class MemoryArrayExtenders
         mem = mem.Slice(bytes);
         return r;
     }
+    
+    /// <summary>
+    /// Try to read structs and advance the pointer by the number of bytes read.
+    /// if span.Length less than count of bytes for read - return false and do not change span
+    /// </summary>
+    /// <returns>true if read successful, false otherwise</returns>
+    public static bool TryRead<T>(this ref Memory<byte> mem, out Span<T> value, int? count = null) where T : struct
+    {
+        var itemSize = Unsafe.SizeOf<T>();
+        count ??= mem.Length / itemSize;
+
+        var lengthInBytes = count.Value * itemSize;
+        if (mem.Length < lengthInBytes)
+        {
+            value = default;
+            return false;
+        }
+
+        value = MemoryMarshal.Cast<byte, T>(mem.Span.Slice(0, lengthInBytes));
+        mem  = mem.Slice(lengthInBytes);
+        return true;
+    }
 
     /// <summary>
     /// Write structs and advance the pointer by the number of bytes written.
@@ -33,5 +55,21 @@ public static class MemoryArrayExtenders
         var itemSize = Unsafe.SizeOf<T>();
         MemoryMarshal.Cast<T, byte>(items.Slice(0, items.Length)).CopyTo(mem.Span);
         return mem = mem.Slice(items.Length * itemSize);
+    }
+    
+    /// <summary>
+    /// Try to write structs and advance the pointer by the number of bytes written.
+    /// if span.Length less than count of bytes for write - return false and do not change span
+    /// </summary>
+    /// <returns>true if write successful, false otherwise</returns>
+    public static bool TryWrite<T>(this ref Memory<byte> mem, Span<T> items) where T : struct
+    {
+        var itemSize      = Unsafe.SizeOf<T>();
+        var lengthInBytes = items.Length * itemSize;
+        if (mem.Length < lengthInBytes) return false;
+        
+        MemoryMarshal.Cast<T, byte>(items).CopyTo(mem.Span);
+        mem = mem.Slice(lengthInBytes);
+        return true;
     }
 }

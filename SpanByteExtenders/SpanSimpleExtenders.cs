@@ -16,6 +16,14 @@ public static class SpanSimpleExtenders
         span = span.Slice(Unsafe.SizeOf<T>());
         return r;
     }
+    
+    public static bool TryRead<T>(this ref Span<byte> span, out T value) where T : struct
+    {
+        
+        value = Unsafe.As<byte, T>(ref MemoryMarshal.GetReference(span));
+        span = span.Slice(Unsafe.SizeOf<T>());
+        return true;
+    }
 
     /// <summary>
     /// Write one struct to span and advance the pointer by the number of bytes written.
