@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
         <AssemblyName>SpanByteExtenders</AssemblyName>
         <PackageId>$(AssemblyName)</PackageId>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-        <Version>2023.6.18.0</Version>
+        <Version>2024.11.22.0</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
         <Description>Span extensions. MIT License</Description>
