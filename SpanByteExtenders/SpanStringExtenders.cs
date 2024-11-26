@@ -90,7 +90,7 @@ public static class SpanStringExtenders
         if (sourceSpan.Length == 0) return span;
 
         sourceSpan.CopyTo(span);
-        return span.Slice(sourceSpan.Length);
+        return span = span.Slice(sourceSpan.Length);
     }
 
     #endregion
